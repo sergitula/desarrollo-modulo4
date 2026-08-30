@@ -4,7 +4,7 @@ import { NavLink } from './NavLink.jsx';
 
 export const Navbar = () => {
     return (
-        <header>
+        <header className=''>
             <nav className="flex justify-between"> 
                 <div> 
                     <a href="#">RETROCUP '26</a>
