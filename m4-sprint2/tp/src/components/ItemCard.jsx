@@ -1,8 +1,10 @@
+import logoJuego from '../assets/juego.png'
 
 const ItemCard = ({juego, enMiLista, toggleJuego}) => {
 // const ItemCard = ({titulo,genero, puntaje,precio, enOferta}) => {
     return (
         <article className="border flex">
+            <img src={logoJuego} alt="logo_juego" />
             <h3>{juego.titulo}</h3>
             <p>{juego.genero} - {juego.anio}</p>
             <p>{juego.puntaje}/100</p>

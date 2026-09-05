@@ -1,3 +1,5 @@
+import ThemeSwitcher from "./ThemeSwitcher"
+
 export const Navbar = ({onAbrirPanel, cantidadItems}) => {
   return (
     <header>
@@ -7,6 +9,7 @@ export const Navbar = ({onAbrirPanel, cantidadItems}) => {
             <button onClick={onAbrirPanel}>
                 Mi Lista {cantidadItems > 0 && `(${cantidadItems})`}
             </button>
+            <ThemeSwitcher />
         </nav>
     </header>
   )

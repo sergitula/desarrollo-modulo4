@@ -4,10 +4,20 @@ import { Navbar } from "./components/Navbar";
 import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import { juegos } from "./data/items";
+import { Footer } from "./components/Footer";
 
 function App() {
   //LISTA LISTA PERSONAL + PANEL "MI LISTA" DESACTIVADO (LISTA PERSONAL)
-  const [miListaDeJuegos, setmiListaDeJuegos] = useState([]);
+  // const [miListaDeJuegos, setmiListaDeJuegos] = useState([]); //--> Lista anteriror
+  const [miListaDeJuegos, setmiListaDeJuegos] = useState(()=>{  // --> Lista para recuperar el localStorage
+    try {
+      const guardado = localStorage.getItem('miListaPersonal:miListaDeJuegos')
+      return guardado ? JSON.parse(guardado) : []
+    } catch {
+      return []
+    }
+  });
+
   const [isPanelOpen, setIsPanelOpen] = useState(false);
 
   //BUSQUEDA
@@ -31,6 +41,15 @@ function App() {
     });
   };
 
+
+  const vaciarLista = () => {
+    const confirmado = window.confirm("¿Estás seguro de que querés vaciar toda tu lista?");
+    if (confirmado) {
+      setmiListaDeJuegos([]); // Limpiamos el estado de React
+      localStorage.removeItem('miListaPersonal:miListaDeJuegos'); // Borramos solo nuestra clave del storage
+    }
+  };
+
   // El título de la pestaña muestra el contador con un useEffect: "Mi lista (3) | NombreDeTuApp".
 
   useEffect(() => {
@@ -41,6 +60,10 @@ function App() {
     }
   }, [miListaDeJuegos]); // se ejecuta la primera vez y cada vez que algo cambia
 
+  //Aqui estoy guardando los datos milistaDeJuegos en el localStorage.
+  useEffect(() => {
+    localStorage.setItem('miListaPersonal:miListaDeJuegos', JSON.stringify(miListaDeJuegos))
+  }, [miListaDeJuegos])
 
   
   return (
@@ -62,8 +85,11 @@ function App() {
           miListaDeJuegos={miListaDeJuegos}
           onClose={() => setIsPanelOpen(false)}
           quitarJuego={toggleJuego}
+          vaciarLista={vaciarLista}
         />
       )}
+
+      <Footer />
     </>
   );
 }
