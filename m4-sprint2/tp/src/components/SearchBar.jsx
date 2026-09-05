@@ -1,0 +1,15 @@
+
+const SearchBar = ({busqueda,setBusqueda}) => {
+  return (
+    <div>
+      <input 
+        type="text"
+        placeholder="Buscar juego..."
+        value={busqueda}
+        onChange={(e) => setBusqueda(e.target.value)}
+      />
+    </div>
+  )
+}
+
+export default SearchBar
