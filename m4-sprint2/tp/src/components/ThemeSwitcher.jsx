@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react"
+import {useEffect } from "react"
 
 import imgModoClaro from '../assets/tema/modo-claro.png'
 import imgModoOscuro from '../assets/tema/modo-oscuro.png'
+import useLocalStorage from "../hooks/useLocalStorage"
 
 const CLAVE_TEMA = 'miWatchList:tema' 
 
 const ThemeSwitcher = () => {
-  const [modoOscuro, setModoOscuro] = useState(() => {
-    return localStorage.getItem(CLAVE_TEMA) === 'oscuro'
-  })
+
+  const [modoOscuro, setModoOscuro] = useLocalStorage(CLAVE_TEMA, false)
+
   useEffect(() => {
-    localStorage.setItem(CLAVE_TEMA, modoOscuro ? 'oscuro' : 'claro')
     document.documentElement.classList.toggle('dark', modoOscuro)
   }, [modoOscuro])
 
